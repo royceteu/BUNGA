@@ -1,1 +1,4 @@
-# BUNGA
+# PROJECT BUNGA
+
+# Project Proposal:
+In Southeast Asia, many pregnant women face limited access to reliable, culturally appropriate health information in their native languages. This leads to missed medical check-ups, poor nutrition, unaddressed symptoms, and increased anxiety—ultimately impacting maternal and fetal health. We propose a LLM-powered AI assistant that delivers personalized, trimester-specific pregnancy support based on age and medical history. Core features include daily health tips on nutrition, exercise, and sleep; a symptom checker offering triage and doctor visit suggestions; reminders for check-ups and supplements; and mental wellness tools like guided breathing and journaling prompts. Unlike generic apps, this solution is uniquely tailored for underserved SEA communities, offering language-aware, culturally contextual advice. The assistant bridges the gap between healthcare access and timely, trustworthy guidance, empowering women with holistic, empathetic support throughout pregnancy.
