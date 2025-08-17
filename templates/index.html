@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUNGA - Pregnancy Health Tracker</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">BUNGA</div>
+            <div class="logo">
+                <i class="fas fa-baby"></i>
+                BUNGA
+            </div>
             <select class="language-selector" id="languageSelect">
                 <option value="en">English</option>
                 <option value="id">Bahasa Indonesia</option>
@@ -21,43 +25,40 @@
     </header>
 
     <div class="container">
-        <!-- Welcome Section -->
-        <div class="card">
+        <div class="card card-welcome">
             <div class="card-header">
-                <div class="card-icon">👶</div>
-                <h2 class="card-title">Welcome, <span id="patientName">{{ session.patient_name or 'Mother' }}</span>!</h2> <!-- i think patientName is a variable -->
+                <div class="card-icon"><i class="fas fa-baby"></i></div>
+                <h2 class="card-title">Welcome, <span id="patientName">{{ session.patient_name or 'Mother' }}</span>!</h2>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 40%"> <!-- can change to smth like {{ pregnancy_progress }} -->
-                    Week 16 of 40 <!-- can be changed to something dynamic like {{ current_week }} -->
+                <div class="progress-fill" style="width: 40%">
+                    Week 16 of 40
                 </div>
             </div>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value">2nd</div> <!-- variable, can change to {{ trimester }} -->
+                    <div class="stat-value">2nd</div>
                     <div class="stat-label">Trimester</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">168</div> <!-- variable, can change to {{ days_remaining }} -->
+                    <div class="stat-value">168</div>
                     <div class="stat-label">Days to Go</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">3</div> <!-- variable, can change to {{ checkups_completed }} -->
+                    <div class="stat-value">3</div>
                     <div class="stat-label">Checkups Done</div>
                 </div>
             </div>
         </div>
 
-		<!-- for the forms we may need some csrf protection feature -->
         <div class="main-content">
-            <!-- Patient Information Form -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">📋</div>
+                    <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
                     <h2 class="card-title">Patient Information</h2>
                 </div>
-                <form id="patientForm" action="/submit-patient-info" method="POST"> <!-- refer to line 252 - patient form handler for functionality -->
-                    <div class="form-row"> <!-- the action=/submit-patient-info can be changed to our flask route -->
+                <form id="patientForm" action="/submit-patient-info" method="POST">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
                             <input type="text" id="fullName" name="fullName" required>
@@ -109,14 +110,16 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save Information</button>
+                    <button type="submit" class="btn btn-primary">
+                        Save Information
+                        <i class="fas fa-save" style="margin-left: 8px;"></i>
+                    </button>
                 </form>
             </div>
 
-            <!-- Reminders Section -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">⏰</div>
+                    <div class="card-icon"><i class="fas fa-bell"></i></div>
                     <h2 class="card-title">Upcoming Reminders</h2>
                 </div>
                 <div class="reminder-list">
@@ -150,15 +153,14 @@
                     </div>
                 </div>
                 <button class="btn btn-secondary" style="margin-top: 15px; width: 100%;">
-                    Add New Reminder <!-- not functional -->
+                    Add New Reminder <i class="fas fa-plus-circle" style="margin-left: 8px;"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Health Tips Section --> <!-- refer to line 298 - loadMoreTips async func -->
         <div class="card">
             <div class="card-header">
-                <div class="card-icon">💡</div>
+                <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
                 <h2 class="card-title">Daily Health Tips</h2>
             </div>
             <div id="healthTips">
@@ -178,13 +180,12 @@
                     <p>Try sleeping on your left side with a pillow between your knees. This position improves blood flow to your baby and reduces pressure on your back.</p>
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="loadMoreTips()">Load More Tips</button>
+            <button class="btn btn-primary" onclick="loadMoreTips()">Load More Tips <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
         </div>
 
-        <!-- AI Chatbot Section -->
         <div class="card">
             <div class="card-header">
-                <div class="card-icon">🤖</div>
+                <div class="card-icon"><i class="fas fa-robot"></i></div>
                 <h2 class="card-title">AI Chatbot</h2>
             </div>
             <div class="chatbot-container">
@@ -196,18 +197,17 @@
                 </div>
                 <div class="chat-input-area">
                     <input type="text" id="chatInput" placeholder="Ask me anything...">
-                    <button id="sendMessageBtn" class="btn btn-primary">Send</button>
+                    <button id="sendMessageBtn" class="btn btn-primary">Send <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
                 </div>
                 <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-                    Thinking...
+                    Thinking... <span class="spinner"></span>
                 </div>
             </div>
         </div>
 
-        <!-- Mental Wellness Section -->
         <div class="card">
             <div class="card-header">
-                <div class="card-icon">🧘‍♀️</div>
+                <div class="card-icon"><i class="fas fa-spa"></i></div>
                 <h2 class="card-title">Mental Wellness</h2>
             </div>
             <div class="breathing-exercise">
@@ -217,7 +217,7 @@
                     <span id="breathText">Breathe In</span>
                 </div>
                 <p>Follow the rhythm: Inhale for 4 counts, hold for 4, exhale for 4</p>
-                <button class="btn btn-primary" onclick="startBreathing()">Start Exercise</button>
+                <button class="btn btn-primary" onclick="startBreathing()">Start Exercise <i class="fas fa-play-circle" style="margin-left: 8px;"></i></button>
             </div>
             
             <div style="margin-top: 20px; padding: 20px; background: var(--light-gray); border-radius: 10px;">
@@ -231,10 +231,9 @@
             </div>
         </div>
 
-        <!-- Emergency Contact -->
         <div class="card" style="background: linear-gradient(135deg, #ffebee, #ffcdd2);">
             <div class="card-header">
-                <div class="card-icon" style="background: #ef5350;">🚨</div>
+                <div class="card-icon" style="background: #ef5350;"><i class="fas fa-ambulance"></i></div>
                 <h2 class="card-title" style="color: #c62828;">Emergency Contacts</h2>
             </div>
             <p><strong>Emergency Hotline:</strong> 119 (Medical Emergency)</p>
@@ -247,370 +246,6 @@
         </div>
     </div>
 
-    <script>
-        // Global variable to store chat history
-        let chatHistory = [];
-        const chatHistoryElement = document.getElementById('chatHistory');
-        const chatInput = document.getElementById('chatInput');
-        const sendMessageBtn = document.getElementById('sendMessageBtn');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-
-        // Initial bot message added to history
-        chatHistory.push({ role: "model", parts: [{ text: "Hello! I'm your AI assistant. How can I help you today regarding your pregnancy?" }] });
-
-
-        // Function to convert base64 to ArrayBuffer
-        function base64ToArrayBuffer(base64) {
-            const binary_string = window.atob(base64);
-            const len = binary_string.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binary_string.charCodeAt(i);
-            }
-            return bytes.buffer;
-        }
-
-        // Function to convert PCM audio data to WAV Blob
-        function pcmToWav(pcmData, sampleRate) {
-            const numChannels = 1; // Mono audio
-            const sampleBits = 16; // 16-bit PCM
-            const byteRate = sampleRate * numChannels * sampleBits / 8;
-            const blockAlign = numChannels * sampleBits / 8;
-
-            const wavBuffer = new ArrayBuffer(44 + pcmData.byteLength);
-            const view = new DataView(wavBuffer);
-
-            // RIFF chunk
-            writeString(view, 0, 'RIFF');
-            view.setUint32(4, 36 + pcmData.byteLength, true); // ChunkSize
-            writeString(view, 8, 'WAVE');
-
-            // FMT chunk
-            writeString(view, 12, 'fmt ');
-            view.setUint32(16, 16, true); // Subchunk1Size
-            view.setUint16(20, 1, true); // AudioFormat (1 for PCM)
-            view.setUint16(22, numChannels, true); // NumChannels
-            view.setUint32(24, sampleRate, true); // SampleRate
-            view.setUint32(28, byteRate, true); // ByteRate
-            view.setUint16(32, blockAlign, true); // BlockAlign
-            view.setUint16(34, sampleBits, true); // BitsPerSample
-
-            // DATA chunk
-            writeString(view, 36, 'data');
-            view.setUint32(40, pcmData.byteLength, true); // Subchunk2Size
-
-            // Write PCM data
-            const pcmBytes = new Uint8Array(pcmData);
-            for (let i = 0; i < pcmBytes.length; i++) {
-                view.setUint8(44 + i, pcmBytes[i]);
-            }
-
-            return new Blob([view], { type: 'audio/wav' });
-        }
-
-        function writeString(view, offset, string) {
-            for (let i = 0; i < string.length; i++) {
-                view.setUint8(offset + i, string.charCodeAt(i));
-            }
-        }
-
-
-        // Function to display messages in the chat history
-        function displayMessage(message, sender) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message', `${sender}-message`);
-            messageElement.textContent = message;
-
-            if (sender === 'bot') {
-                const speakButton = document.createElement('button');
-                speakButton.classList.add('speak-btn');
-                speakButton.textContent = '🔊';
-                speakButton.dataset.text = message; // Store the text to be spoken
-                messageElement.appendChild(speakButton);
-            }
-            chatHistoryElement.appendChild(messageElement);
-            chatHistoryElement.scrollTop = chatHistoryElement.scrollHeight; // Auto-scroll to bottom
-        }
-
-        // Function to send message to AI
-        async function sendMessageToAI(userPrompt) {
-            displayMessage(userPrompt, 'user');
-            chatInput.value = ''; // Clear input field
-            loadingIndicator.style.display = 'block'; // Show loading
-
-            chatHistory.push({ role: "user", parts: [{ text: userPrompt }] });
-
-            const payload = {
-                contents: chatHistory,
-            };
-            const apiKey = ""; // If you want to use models other than gemini-2.5-flash-preview-05-20 or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            let responseText = "Sorry, I couldn't get a response. Please try again.";
-            let retries = 0;
-            const maxRetries = 3;
-            const initialDelay = 1000; // 1 second
-
-            while (retries < maxRetries) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        // If response is not OK, it might be a rate limit or other error
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        responseText = result.candidates[0].content.parts[0].text;
-                        break; // Success, exit retry loop
-                    } else {
-                        throw new Error("Unexpected API response structure.");
-                    }
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    retries++;
-                    if (retries < maxRetries) {
-                        const delay = initialDelay * Math.pow(2, retries - 1); // Exponential backoff
-                        await new Promise(res => setTimeout(res, delay));
-                    }
-                }
-            }
-            loadingIndicator.style.display = 'none'; // Hide loading
-            displayMessage(responseText, 'bot');
-            chatHistory.push({ role: "model", parts: [{ text: responseText }] }); // Add bot response to history
-        }
-
-        // Function to convert text to speech using Gemini TTS API
-        async function textToSpeech(text) {
-            const payload = {
-                contents: [{
-                    parts: [{ text: text }]
-                }],
-                generationConfig: {
-                    responseModalities: ["AUDIO"],
-                    speechConfig: {
-                        voiceConfig: {
-                            prebuiltVoiceConfig: { voiceName: "Kore" }
-                        }
-                    }
-                },
-                model: "gemini-2.5-flash-preview-tts"
-            };
-
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                const part = result?.candidates?.[0]?.content?.parts?.[0];
-                const audioData = part?.inlineData?.data;
-                const mimeType = part?.inlineData?.mimeType;
-
-                if (audioData && mimeType && mimeType.startsWith("audio/")) {
-                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
-                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 16000; // Default to 16kHz if not found
-                    const pcmData = base64ToArrayBuffer(audioData);
-                    const wavBlob = pcmToWav(pcmData, sampleRate);
-                    const audioUrl = URL.createObjectURL(wavBlob);
-                    
-                    const audio = new Audio(audioUrl);
-                    audio.play();
-                } else {
-                    console.error("TTS response did not contain expected audio data.");
-                }
-            } catch (error) {
-                console.error("Error calling Gemini TTS API:", error);
-            }
-        }
-
-        // Event listener for send button click
-        sendMessageBtn.addEventListener('click', () => {
-            const userPrompt = chatInput.value.trim();
-            if (userPrompt) {
-                sendMessageToAI(userPrompt);
-            }
-        });
-
-        // Event listener for Enter key press in chat input
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const userPrompt = chatInput.value.trim();
-                if (userPrompt) {
-                    sendMessageToAI(userPrompt);
-                }
-            }
-        });
-
-        // Event listener for speak buttons
-        chatHistoryElement.addEventListener('click', (e) => {
-            if (e.target.classList.contains('speak-btn')) {
-                const textToSpeak = e.target.dataset.text;
-                if (textToSpeak) {
-                    textToSpeech(textToSpeak);
-                }
-            }
-        });
-
-        // Calculate due date based on last menstrual period
-        document.getElementById('lastPeriod').addEventListener('change', function() {
-            const lmp = new Date(this.value);
-            const dueDate = new Date(lmp);
-            dueDate.setDate(dueDate.getDate() + 280); // 40 weeks
-            
-            const year = dueDate.getFullYear();
-            const month = String(dueDate.getMonth() + 1).padStart(2, '0');
-            const day = String(dueDate.getDate()).padStart(2, '0');
-            
-            document.getElementById('dueDate').value = `${year}-${month}-${day}`;
-            
-            // Auto-select trimester based on current date
-            const today = new Date();
-            const weeksPassed = Math.floor((today - lmp) / (1000 * 60 * 60 * 24 * 7));
-            
-            if (weeksPassed <= 12) {
-                document.getElementById('trimester').value = '1';
-            } else if (weeksPassed <= 27) {
-                document.getElementById('trimester').value = '2';
-            } else {
-                document.getElementById('trimester').value = '3';
-            }
-        });
-		
-		// Fetch reminders from Flask
-		async function loadReminders() {
-			const response = await fetch('/api/reminders');
-			const reminders = await response.json();
-			
-			const reminderList = document.querySelector('.reminder-list');
-			reminderList.innerHTML = reminders.map(r => `
-				<div class="reminder-item">
-					<div class="reminder-date">${r.date}</div>
-					<div class="reminder-text">
-						<strong>${r.title}</strong><br>
-						${r.description}
-					</div>
-				</div>
-			`).join('');
-		}
-
-        // Form submission handler
-        document.getElementById('patientForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // change this out for actual submission functionality
-            
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            submitBtn.textContent = 'Saving...';
-            submitBtn.disabled = true;
-			
-			// i added this in as a template for functionality
-//			fetch('/submit-patient-info', {
-//				method: 'POST',
-//				body: new FormData(this),
-//			})
-//			.then(response => response.json())
-//			.then(data => {
-				// Handle response
-//			});
-//		});
-            
-            // Simulate API call
-			// NOT ACTUAL FUNCTIONALITY
-            setTimeout(() => {
-                // Update welcome message with patient name
-                const name = document.getElementById('fullName').value;
-                document.getElementById('patientName').textContent = name || 'Mother';
-                
-                submitBtn.textContent = 'Saved Successfully!';
-                setTimeout(() => {
-                    submitBtn.textContent = 'Save Information';
-                    submitBtn.disabled = false;
-                }, 2000);
-            }, 1000);
-        });
-
-        // Breathing exercise
-        let breathingInterval;
-        function startBreathing() {
-            const circle = document.getElementById('breathCircle');
-            const text = document.getElementById('breathText');
-            let phase = 0;
-            const phases = ['Breathe In', 'Hold', 'Breathe Out', 'Hold'];
-            
-            clearInterval(breathingInterval);
-            
-            breathingInterval = setInterval(() => {
-                text.textContent = phases[phase];
-                phase = (phase + 1) % 4;
-            }, 4000);
-            
-            // Stop after 1 minute
-            setTimeout(() => {
-                clearInterval(breathingInterval);
-                text.textContent = 'Complete';
-            }, 60000);
-        }
-
-        // Simulate loading more health tips
-        function loadMoreTips() {
-            const tipsContainer = document.getElementById('healthTips');
-            const newTips = [
-                {
-                    category: 'Nutrition',
-                    title: 'Iron-Rich Foods',
-                    content: 'Include spinach, lean meats, and fortified cereals in your diet to prevent anemia during pregnancy.'
-                },
-                {
-                    category: 'Safety',
-                    title: 'Avoid Hot Baths',
-                    content: 'Keep bath water below 38°C (100°F) to avoid raising your core body temperature too high.'
-                }
-            ];
-            
-            newTips.forEach(tip => {
-                const tipElement = document.createElement('div');
-                tipElement.className = 'health-tip';
-                tipElement.innerHTML = `
-                    <span class="tip-category">${tip.category}</span>
-                    <h3>${tip.title}</h3>
-                    <p>${tip.content}</p>
-                `;
-                tipsContainer.appendChild(tipElement);
-            });
-        }
-
-        // Language switcher (placeholder functionality)
-        document.getElementById('languageSelect').addEventListener('change', function() {
-            console.log('Language changed to:', this.value);
-            // Here you would implement actual translation logic
-            // For now, just show a message
-            if (this.value !== 'en') {
-                const messageBox = document.createElement('div');
-                messageBox.classList.add('message-box');
-                messageBox.innerHTML = `
-                    <p>Translation feature coming soon! This would connect to your backend for multilingual support.</p>
-                    <button onclick="this.parentNode.remove()">OK</button>
-                `;
-                document.body.appendChild(messageBox);
-                this.value = 'en'; // Reset to English for now
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
